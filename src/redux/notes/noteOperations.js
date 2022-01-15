@@ -1,6 +1,5 @@
 import axios from 'axios';
 import notesActions from './noteActions';
-import noteSelectors from './noteSelectors';
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 

@@ -1,14 +1,15 @@
 import styled from 'styled-components';
 
 export const Nav = styled.nav`
-  padding: 0 20px;
+    padding: 0 20px;
+    background-color: #fbc02d;
 `;
 
 export const LogoBox = styled.div`
-  h2 {
-    text-align: center;
-    margin: 10px 0 50px 0;
-    font-size: 20px;
-    font-weight: 700;
-  }
+    h2 {
+        text-align: center;
+        margin: 10px 0 50px 0;
+        font-size: 20px;
+        font-weight: 700;
+    }
 `;

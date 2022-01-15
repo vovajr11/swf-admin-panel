@@ -10,9 +10,9 @@ require('dotenv').config();
 ReactDOM.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-      <ChakraProvider>
+      {/* <ChakraProvider> */}
         <App />
-      </ChakraProvider>
+      {/* </ChakraProvider> */}
     </PersistGate>
   </Provider>,
   document.getElementById('root'),
