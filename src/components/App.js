@@ -6,32 +6,37 @@ import Layout from './Layout';
 import PrivateRoute from './PrivateRouter';
 import PublicRoute from './PublicRouter';
 import routes from '../routes';
+import { GlobalStyle } from './Global/Styled';
 
 class App extends Component {
-  componentDidMount() {
-    this.props.onGetCurrentUser();
-  }
-  render() {
-    return (
-      <BrowserRouter>
-        <Layout>
-          <Suspense fallback={<h1>Loading...</h1>}>
-            <Switch>
-              {routes.map(route =>
-                route.private ? (
-                  <PrivateRoute key={route.label} {...route} />
-                ) : (
-                  <PublicRoute key={route.label} {...route} />
-                ),
-              )}
-            </Switch>
-          </Suspense>
-        </Layout>
-      </BrowserRouter>
-    );
-  }
+    componentDidMount() {
+        this.props.onGetCurrentUser();
+    }
+    render() {
+        return (
+            <BrowserRouter>
+                <GlobalStyle />
+                <Layout>
+                    <Suspense fallback={<h1>Loading...</h1>}>
+                        <Switch>
+                            {routes.map(route =>
+                                route.private ? (
+                                    <PrivateRoute
+                                        key={route.label}
+                                        {...route}
+                                    />
+                                ) : (
+                                    <PublicRoute key={route.label} {...route} />
+                                ),
+                            )}
+                        </Switch>
+                    </Suspense>
+                </Layout>
+            </BrowserRouter>
+        );
+    }
 }
 
 export default connect(null, {
-  onGetCurrentUser: authOperations.getCurrentUser,
+    onGetCurrentUser: authOperations.getCurrentUser,
 })(App);

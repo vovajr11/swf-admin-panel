@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import { courseOperations, courseSelectors } from '../../redux/courses';
 import { useInput } from '../../components/Input/useInput';
 import { Input, Button } from '../../components/Global/Styled';
 import CourseAndModuleEditor from './CourseAndModuleEditor';
 import CourseContent from './CourseContent';
 import TextEditor from '../../components/TextEditor';
-
-axios.defaults.baseURL = 'http://localhost:5000/api';
+import { ChapterTitleWrapp } from './Styled';
 
 const CreateCourse = props => {
     const { onFetchCourses, onAddCourse, onAddModule, onAddChapter, courses } =
@@ -25,15 +23,17 @@ const CreateCourse = props => {
     return (
         <section style={{ display: 'flex', justifyContent: 'space-between' }}>
             <div>
-                <Input
-                    type="text"
-                    placeholder="Тема"
-                    value={chapterName.value}
-                    onChange={e => chapterName.onChange(e)}
-                    onBlur={e => chapterName.onBlur(e)}
-                />
+                <ChapterTitleWrapp>
+                    <Input
+                        type="text"
+                        placeholder="Тема"
+                        value={chapterName.value}
+                        onChange={e => chapterName.onChange(e)}
+                        onBlur={e => chapterName.onBlur(e)}
+                    />
 
-                <p>Вибраний модуль: {moduleInfo.name}</p>
+                    <p>Вибраний модуль: {moduleInfo.name}</p>
+                </ChapterTitleWrapp>
 
                 <TextEditor
                     addArticle={onAddChapter}

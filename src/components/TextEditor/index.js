@@ -2,11 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import 'react-quill/dist/quill.snow.css';
 import ReactQuill from 'react-quill';
-import axios from 'axios';
 import EditorToolbar, { modules, formats } from './EditorToolbar';
-import { useLocalStorage } from './useLocalStorage';
-
-axios.defaults.baseURL = 'http://localhost:5000/api';
+import { BtnGreen } from '../../components/Global/Styled';
+import { BtnWrapp } from './Styled';
 
 export const TextEditor = props => {
     const { addArticle, articleName, moduleId } = props;
@@ -29,11 +27,13 @@ export const TextEditor = props => {
 
     return (
         <div className="text-editor">
-            <button onClick={() => setIsOpen(!isOpen)}>
-                {isOpen ? 'Сховати' : 'Показати'}
-            </button>
+            <BtnWrapp>
+                <BtnGreen onClick={() => setIsOpen(!isOpen)}>
+                    {isOpen ? 'Сховати' : 'Показати'}
+                </BtnGreen>
 
-            <button onClick={() => createArticle()}>Створити</button>
+                <BtnGreen onClick={() => createArticle()}>Створити</BtnGreen>
+            </BtnWrapp>
 
             <EditorToolbar />
             <ReactQuill

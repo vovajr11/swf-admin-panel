@@ -1,7 +1,7 @@
 import axios from 'axios';
 import newsAction from './newsAction';
 
-axios.defaults.baseURL = 'http://localhost:5000/api';
+// axios.defaults.baseURL = 'http://localhost:5000/api';
 
 const addNews = newsData => (dispatch, getState) => {
     dispatch(newsAction.addNewsRequest());

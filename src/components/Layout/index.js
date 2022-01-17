@@ -8,10 +8,6 @@ import UserMenu from '../RightBar/UserMenu';
 const Wrapp = styled.div`
     display: flex;
     justify-content: space-between;
-
-    ul {
-        list-style: none;
-    }
 `;
 
 const Children = styled.div`

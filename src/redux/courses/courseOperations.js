@@ -2,6 +2,7 @@ import axios from 'axios';
 import courseAction from './courseAction';
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
+// axios.defaults.baseURL = 'http://localhost:5000/api';
 
 const fetchCourse = () => (dispatch, getState) => {
     dispatch(courseAction.fetchCourseRequest());
@@ -9,7 +10,6 @@ const fetchCourse = () => (dispatch, getState) => {
     axios
         .get('/course/')
         .then(res => {
-            // console.log(response.data, 'response.data');
             dispatch(courseAction.fetchCourseSuccess(res.data));
         })
         .catch(error => dispatch(courseAction.fetchCourseError(error)));

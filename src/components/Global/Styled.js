@@ -1,4 +1,23 @@
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
+
+export const GlobalStyle = createGlobalStyle`
+    body {
+        font-family: 'Roboto', sans-serif;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+    }
+
+    ul {
+        list-style: none;
+    }
+`;
 
 export const LogBox = styled.div`
     width: 500px;
@@ -19,9 +38,8 @@ export const Input = styled.input`
     transition: border-color 0.2s;
 `;
 
-export const Button = styled.button`
+const Button = styled.button`
     width: ${props => props.width};
-    background-color: #4caf50;
     border: none;
     color: white;
     padding: 10px 10px;
@@ -31,4 +49,8 @@ export const Button = styled.button`
     font-size: 16px;
     margin: 0 auto;
     border-radius: 5px;
+`;
+
+export const BtnGreen = styled(Button)`
+    background-color: #4caf50;
 `;

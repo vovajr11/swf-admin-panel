@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useInput } from '../../../components/Input/useInput';
-import { Input, Button } from '../../../components/Global/Styled';
+import { Input, BtnGreen } from '../../../components/Global/Styled';
 import { CourseEditItem } from './Styled';
 
 const CourseAndModuleEditor = props => {
@@ -44,9 +44,13 @@ const CourseAndModuleEditor = props => {
                     placeholder="Опис курсу"
                 ></textarea>
 
-                <Button type="submit" onClick={() => addCourse()} width="150px">
+                <BtnGreen
+                    type="submit"
+                    onClick={() => addCourse()}
+                    width="150px"
+                >
                     Створити курс
-                </Button>
+                </BtnGreen>
             </CourseEditItem>
 
             <CourseEditItem>
@@ -60,13 +64,13 @@ const CourseAndModuleEditor = props => {
 
                 <p>Вибраний курс: {props.courseInfo.courseName}</p>
 
-                <Button
+                <BtnGreen
                     type="submit"
                     onClick={() => addModuleToCourse()}
                     width="160px"
                 >
                     Добавити модуль
-                </Button>
+                </BtnGreen>
             </CourseEditItem>
         </section>
     );
