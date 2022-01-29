@@ -2,6 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useInput } from '../../../components/Input/useInput';
 import { Input, BtnGreen } from '../../../components/Global/Styled';
 import { CourseEditItem } from './Styled';
+import {
+    Notification,
+    notificationTypes,
+} from '../../../components/Notification';
+import 'react-toastify/dist/ReactToastify.css';
 
 const CourseAndModuleEditor = props => {
     const courseName = useInput('', { isEmpty: true, minLength: 1 });
@@ -13,21 +18,23 @@ const CourseAndModuleEditor = props => {
             courseName: courseName.value,
             courseDescription: courseDescription.value,
         });
+        notificationTypes.notificationSuccess('Курс додано');
     };
 
     const addModuleToCourse = () => {
         props.addModule(props.courseInfo.id, {
             moduleName: moduleName.value,
         });
+        notificationTypes.notificationSuccess('Модуль додано');
     };
 
     return (
         <section>
+            <Notification />
             <CourseEditItem>
-                {/* {courseName.isDirty && courseName.isEmpty && (
+                {courseName.isDirty && courseName.isEmpty && (
                     <div style={{ color: 'red' }}>Поле не може бути пустим</div>
-                )} */}
-
+                )}
                 <Input
                     type="text"
                     placeholder="Назва курсу"
@@ -48,12 +55,18 @@ const CourseAndModuleEditor = props => {
                     type="submit"
                     onClick={() => addCourse()}
                     width="150px"
+                    disabled={
+                        !courseName.inputValid || !courseDescription.inputValid
+                    }
                 >
                     Створити курс
                 </BtnGreen>
             </CourseEditItem>
 
             <CourseEditItem>
+                {moduleName.isDirty && moduleName.isEmpty && (
+                    <div style={{ color: 'red' }}>Поле не може бути пустим</div>
+                )}
                 <Input
                     type="text"
                     placeholder="Назва модулю"
@@ -68,6 +81,10 @@ const CourseAndModuleEditor = props => {
                     type="submit"
                     onClick={() => addModuleToCourse()}
                     width="160px"
+                    disabled={
+                        !moduleName.inputValid ||
+                        props.courseInfo.courseName === undefined
+                    }
                 >
                     Добавити модуль
                 </BtnGreen>

@@ -52,5 +52,6 @@ const Button = styled.button`
 `;
 
 export const BtnGreen = styled(Button)`
-    background-color: #4caf50;
+    background-color: ${({ disabled }) => (disabled ? '#70fd74' : '#4caf50')};
+    cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
 `;

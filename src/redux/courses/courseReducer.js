@@ -23,8 +23,6 @@ const addModuleToCourse = (state, action) => {
 const addChapterToModule = (state, action) => {
     const { moduleId, resData } = action.payload;
 
-    console.log(action.payload, 'action.payload');
-
     state.items
         .flatMap(({ courseModules }) => courseModules)
         .map(module =>

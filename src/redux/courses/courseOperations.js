@@ -8,9 +8,9 @@ const fetchCourse = () => (dispatch, getState) => {
     dispatch(courseAction.fetchCourseRequest());
 
     axios
-        .get('/course/')
-        .then(res => {
-            dispatch(courseAction.fetchCourseSuccess(res.data));
+        .get('/course/all-course')
+        .then(({ data }) => {
+            dispatch(courseAction.fetchCourseSuccess(data));
         })
         .catch(error => dispatch(courseAction.fetchCourseError(error)));
 };

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { courseOperations, courseSelectors } from '../../redux/courses';
 import { useInput } from '../../components/Input/useInput';
-import { Input, Button } from '../../components/Global/Styled';
+import { Input } from '../../components/Global/Styled';
 import CourseAndModuleEditor from './CourseAndModuleEditor';
 import CourseContent from './CourseContent';
 import TextEditor from '../../components/TextEditor';
@@ -38,7 +38,8 @@ const CreateCourse = props => {
                 <TextEditor
                     addArticle={onAddChapter}
                     articleName={chapterName.value}
-                    moduleId={moduleInfo.id}
+                    isEmptyChapterName={chapterName.isEmpty}
+                    moduleDetails={{ id: moduleInfo.id, name: moduleInfo.name }}
                 />
             </div>
 
