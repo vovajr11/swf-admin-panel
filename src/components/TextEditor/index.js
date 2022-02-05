@@ -1,30 +1,32 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import 'react-quill/dist/quill.snow.css';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import { addChapter } from '../../redux/course/courseAPI';
 import EditorToolbar, { modules, formats } from './EditorToolbar';
 import { BtnGreen } from '../../components/Global/Styled';
 import { BtnWrapp } from './Styled';
 import { Notification, notificationTypes } from '../../components/Notification';
 
 export const TextEditor = props => {
-    const { addArticle, articleName, moduleDetails, isEmptyChapterName } =
-        props;
-
+    const { articleName, moduleDetails, isEmptyChapterName } = props;
+    const dispatch = useDispatch();
     const [state, setState] = useState({ value: null });
     const [isOpen, setIsOpen] = useState(false);
-
-    const { value } = state;
 
     const handleChange = value => {
         setState({ value });
     };
 
     const createArticle = () => {
-        addArticle(moduleDetails.id, {
-            chapterName: articleName,
-            chapterContent: value,
-        });
+        dispatch(
+            addChapter({
+                moduleId: moduleDetails.id,
+                chapterName: articleName,
+                chapterContent: state.value,
+            }),
+        );
+
         setState({ value: null });
         notificationTypes.notificationSuccess('Нову тему додано');
     };
@@ -52,7 +54,7 @@ export const TextEditor = props => {
                 <EditorToolbar />
                 <ReactQuill
                     theme="snow"
-                    value={value}
+                    value={state.value}
                     onChange={handleChange}
                     placeholder={'Шось розказуй...'}
                     modules={modules}
@@ -62,7 +64,7 @@ export const TextEditor = props => {
                 {isOpen ? (
                     <ReactQuill
                         modules={{ toolbar: null }}
-                        value={value}
+                        value={state.value}
                         style={{ margin: '1em', flex: '1' }}
                         readOnly={true}
                     />
@@ -72,8 +74,4 @@ export const TextEditor = props => {
     );
 };
 
-const mapStateToProps = state => ({});
-
-const mapDispatchToProps = {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(TextEditor);
+export default TextEditor;

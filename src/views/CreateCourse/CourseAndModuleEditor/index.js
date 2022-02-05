@@ -1,30 +1,38 @@
-import React, { useState, useEffect } from 'react';
-import { useInput } from '../../../components/Input/useInput';
-import { Input, BtnGreen } from '../../../components/Global/Styled';
-import { CourseEditItem } from './Styled';
-import {
-    Notification,
-    notificationTypes,
-} from '../../../components/Notification';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import 'react-toastify/dist/ReactToastify.css';
+import { addCourse, addModule } from '@redux/course/courseAPI';
+import { useInput } from '@components/Input/useInput';
+import { Input, BtnGreen } from '@components/Global/Styled';
+import { CourseEditItem } from './Styled';
+import { Notification, notificationTypes } from '@components/Notification';
 
-const CourseAndModuleEditor = props => {
+const CourseAndModuleEditor = ({ courseInfo }) => {
     const courseName = useInput('', { isEmpty: true, minLength: 1 });
     const courseDescription = useInput('', { isEmpty: true, minLength: 1 });
     const moduleName = useInput('', { isEmpty: true, minLength: 1 });
 
-    const addCourse = () => {
-        props.addCourse({
-            courseName: courseName.value,
-            courseDescription: courseDescription.value,
-        });
+    const dispatch = useDispatch();
+
+    const onAddCourse = () => {
+        dispatch(
+            addCourse({
+                courseName: courseName.value,
+                courseDescription: courseDescription.value,
+            }),
+        );
+
         notificationTypes.notificationSuccess('Курс додано');
     };
 
-    const addModuleToCourse = () => {
-        props.addModule(props.courseInfo.id, {
-            moduleName: moduleName.value,
-        });
+    const onAddModuleToCourse = () => {
+        dispatch(
+            addModule({
+                courseId: courseInfo.id,
+                moduleName: moduleName.value,
+            }),
+        );
+
         notificationTypes.notificationSuccess('Модуль додано');
     };
 
@@ -53,7 +61,7 @@ const CourseAndModuleEditor = props => {
 
                 <BtnGreen
                     type="submit"
-                    onClick={() => addCourse()}
+                    onClick={() => onAddCourse()}
                     width="150px"
                     disabled={
                         !courseName.inputValid || !courseDescription.inputValid
@@ -75,15 +83,15 @@ const CourseAndModuleEditor = props => {
                     onBlur={e => moduleName.onBlur(e)}
                 />
 
-                <p>Вибраний курс: {props.courseInfo.courseName}</p>
+                <p>Вибраний курс: {courseInfo.courseName}</p>
 
                 <BtnGreen
                     type="submit"
-                    onClick={() => addModuleToCourse()}
+                    onClick={() => onAddModuleToCourse()}
                     width="160px"
                     disabled={
                         !moduleName.inputValid ||
-                        props.courseInfo.courseName === undefined
+                        courseInfo.courseName === undefined
                     }
                 >
                     Добавити модуль

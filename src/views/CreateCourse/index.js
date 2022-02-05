@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { courseOperations, courseSelectors } from '../../redux/courses';
-import { useInput } from '../../components/Input/useInput';
-import { Input } from '../../components/Global/Styled';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchCourse } from '@redux/course/courseAPI';
+import { useInput } from '@components/Input/useInput';
+import { Input } from '@components/Global/Styled';
+import TextEditor from '@components/TextEditor';
 import CourseAndModuleEditor from './CourseAndModuleEditor';
 import CourseContent from './CourseContent';
-import TextEditor from '../../components/TextEditor';
 import { ChapterTitleWrapp } from './Styled';
 
-const CreateCourse = props => {
-    const { onFetchCourses, onAddCourse, onAddModule, onAddChapter, courses } =
-        props;
+const CreateCourse = () => {
+    const dispatch = useDispatch();
+    const courses = useSelector(state => state.courses.items);
 
     useEffect(() => {
-        onFetchCourses();
+        dispatch(fetchCourse());
     }, []);
 
     const chapterName = useInput('', { isEmpty: true, minLength: 1 });
@@ -36,7 +36,6 @@ const CreateCourse = props => {
                 </ChapterTitleWrapp>
 
                 <TextEditor
-                    addArticle={onAddChapter}
                     articleName={chapterName.value}
                     isEmptyChapterName={chapterName.isEmpty}
                     moduleDetails={{ id: moduleInfo.id, name: moduleInfo.name }}
@@ -44,12 +43,7 @@ const CreateCourse = props => {
             </div>
 
             <div>
-                <CourseAndModuleEditor
-                    addCourse={onAddCourse}
-                    addModule={onAddModule}
-                    allCourses={courses}
-                    courseInfo={courseInfo}
-                />
+                <CourseAndModuleEditor courseInfo={courseInfo} />
 
                 <CourseContent
                     courses={courses}
@@ -61,15 +55,4 @@ const CreateCourse = props => {
     );
 };
 
-const mapStateToProps = state => ({
-    courses: courseSelectors.getCourseData(state),
-});
-
-const mapDispatchToProps = {
-    onFetchCourses: courseOperations.fetchCourse,
-    onAddCourse: courseOperations.addCourse,
-    onAddModule: courseOperations.addModule,
-    onAddChapter: courseOperations.addChapter,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(CreateCourse);
+export default CreateCourse;
